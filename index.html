@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>💌 Pour toi</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle, #fdecef, #f6b1c3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+}
+
+/* ENVELOPPE */
+.envelope {
+    width: 360px;
+    height: 240px;
+    background: #ffffff;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    border-radius: 6px;
+}
+
+/* RABAT */
+.flap {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 180px solid transparent;
+    border-right: 180px solid transparent;
+    border-bottom: 120px solid #ead8b4;
+    transform-origin: top;
+    transition: transform 1s ease;
+    z-index: 3;
+}
+
+/* CIRE */
+.wax {
+    width: 55px;
+    height: 55px;
+    background: darkred;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: inset -6px -6px 10px rgba(0,0,0,0.4);
+    transition: opacity 0.6s;
+    z-index: 4;
+}
+
+/* FEUILLE */
+
+
+/* OUVERTURE */
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope.open .paper {
+    transform: translateY(-40px);
+}
+
+.envelope.open .wax {
+    opacity: 0;
+}
+
+/* CONTENU */
+.letter {
+    display: none;
+    width: 400px;
+    padding: 35px;
+    background: #fffaf0;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+h1 {
+    color: #b0004f;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+button {
+    padding: 12px 28px;
+    font-size: 18px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+}
+
+#yes {
+    background: #ff4d6d;
+    color: white;
+    margin-right: 20px;
+}
+
+#no {
+    background: #555;
+    color: white;
+    position: absolute;
+}
+
+/* VIDEO INTEGREE */
+.video-box {
+    display: none;
+    width: 600px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+    animation: fadeIn 1s ease;
+}
+
+video {
+    width: 100%;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="musiquesst.mp3"></audio>
+
+<div class="envelope" id="envelope">
+    <div class="flap"></div>
+    <div class="paper"></div>
+    <div class="wax"></div>
+</div>
+
+<div class="letter" id="letter">
+    <h1>💖 Ma Valentine 💖</h1>
+    <p>
+        💌 <strong>CLARA POURCHASSE</strong>,<br><br>
+        Coucou CLARA
+        <br><br>
+        je voulais te dire a quel point c'est quasi deux ans ensemble on était incroyable. 
+        <br><br>
+        Et j'avais une petite question a te poser...
+    </p>
+    <h2>Veux-tu être ma Valentine ? 💕</h2>
+
+    <button id="yes">Oui 💘</button>
+    <button id="no">Non 😏</button>
+</div>
+
+<div class="video-box" id="videoBox">
+    <video id="video" src="lettrestvalantin.mp4" controls></video>
+</div>
+
+<script>
+const envelope = document.getElementById("envelope");
+const letter = document.getElementById("letter");
+const music = document.getElementById("music");
+const noBtn = document.getElementById("no");
+const videoBox = document.getElementById("videoBox");
+
+envelope.addEventListener("click", () => {
+    envelope.classList.add("open");
+    music.play();
+
+    setTimeout(() => {
+        envelope.style.display = "none";
+        letter.style.display = "block";
+        noBtn.style.left = "55%";
+        noBtn.style.top = "70%";
+    }, 1100);
+});
+
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * (window.innerWidth - 140);
+    const y = Math.random() * (window.innerHeight - 80);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+document.getElementById("yes").addEventListener("click", () => {
+    music.pause();
+    letter.style.display = "none";
+    videoBox.style.display = "block";
+});
+</script>
+
+</body>
+</html>
